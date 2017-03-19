@@ -23,5 +23,21 @@ namespace ZwartOpWit.Controllers
             stitchJobsListVM.stitchJobsList = _context.Stitches.ToList();
             return View(stitchJobsListVM);
         }
+        public IActionResult PlanStitch1()
+        {
+            return View();
+        }
+        public IActionResult PlanStitch2()
+        {
+            return View();
+        }
+        public IActionResult PlanStitch3()
+        {
+            return View();
+        }
+        public IActionResult PlanStitch4()
+        {
+            return View();
+        }
     }
 }
