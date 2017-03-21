@@ -1,7 +1,7 @@
 ﻿@{
 
 }
-<h1>Stitch Jobs to do</h1>
+<h1> Jobs to do</h1>
 <div>
     Delivery Date
 </div>
@@ -17,6 +17,7 @@
                 <th>U-Stitch72</th>
                 <th>U-Stitch48</th>
                 <th>i-Sitch</th>
+                <th>Out</th>
             </tr>
         </thead>
         <tbody>
@@ -37,6 +38,9 @@
                         </td>
                         <td>
                             <a asp-controller="Stitch" asp-action="PlanStitch4" asp-route-id="@s.Id" class="btn btn-default"><span class="glyphicon glyphicon-record"></span></a>
+                        </td>
+                        <td>
+                            <a asp-controller="Stitch" asp-action="Out" asp-route-id="@s.Id" class="btn btn-default"><span class="glyphicon glyphicon-record"></span></a>
                         </td>
                     </tr>
              }

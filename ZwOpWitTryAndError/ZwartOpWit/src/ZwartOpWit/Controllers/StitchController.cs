@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,27 +18,63 @@ namespace ZwartOpWit.Controllers
             _context = context;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int id)
         {
             StitchJobsListVM stitchJobsListVM = new StitchJobsListVM();
-            stitchJobsListVM.stitchJobsList = _context.Stitches.ToList();
+            stitchJobsListVM.stitchJobsList = _context.Stitches.Where(e => e.MachineId == id).Include(m => m.Machine).ToList();
             return View(stitchJobsListVM);
         }
-        public IActionResult PlanStitch1()
+        public IActionResult Out(int id)
         {
-            return View();
+            Stitch s = new Stitch();
+            s = _context.Stitches.FirstOrDefault(e => e.Id == id);
+            s.MachineId = 1;
+            _context.Entry(s).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            _context.SaveChanges();
+
+            StitchJobsListVM stitchJobsListVM = new StitchJobsListVM();
+            stitchJobsListVM.stitchJobsList = _context.Stitches.Where(e => e.MachineId == 1).ToList();
+            return View("Index", stitchJobsListVM);
         }
-        public IActionResult PlanStitch2()
+        public IActionResult PlanStitch1(int id)
         {
-            return View();
+            Stitch s = new Stitch();
+            s = _context.Stitches.FirstOrDefault(e => e.Id == id);
+            s.MachineId = 2;
+            _context.Entry(s).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            _context.SaveChanges();
+
+            return RedirectToAction("Index", 1);
         }
-        public IActionResult PlanStitch3()
+        public IActionResult PlanStitch2(int id)
         {
-            return View();
+            Stitch s = new Stitch();
+            s = _context.Stitches.FirstOrDefault(e => e.Id == id);
+            s.MachineId = 3;
+            _context.Entry(s).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            _context.SaveChanges();
+
+            return RedirectToAction("Index", 1);
         }
-        public IActionResult PlanStitch4()
+        public IActionResult PlanStitch3(int id)
         {
-            return View();
+            Stitch s = new Stitch();
+            s = _context.Stitches.FirstOrDefault(e => e.Id == id);
+            s.MachineId = 4;
+            _context.Entry(s).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            _context.SaveChanges();
+
+            return RedirectToAction("Index", 1);
+        }
+        public IActionResult PlanStitch4(int id)
+        {
+            Stitch s = new Stitch();
+            s = _context.Stitches.FirstOrDefault(e => e.Id == id);
+            s.MachineId = 2;
+            _context.Entry(s).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            _context.SaveChanges();
+
+            return RedirectToAction("Index", 1);
         }
     }
 }
