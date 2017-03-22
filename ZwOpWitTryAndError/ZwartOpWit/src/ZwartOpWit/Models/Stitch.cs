@@ -9,7 +9,7 @@ namespace ZwartOpWit.Models
     public class Stitch
     {
         public int Id { get; set; }
-        public int JobNumber { get; set; }
+        public string JobNumber { get; set; }
         public int Quantity { get; set; }
         public int Width { get; set; }
         public int Heigth { get; set; }
