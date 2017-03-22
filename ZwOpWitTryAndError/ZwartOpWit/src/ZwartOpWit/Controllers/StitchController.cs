@@ -87,32 +87,31 @@ namespace ZwartOpWit.Controllers
         }
         public IActionResult Import()
         {
-            StreamReader lezer = new StreamReader(new FileStream("myCsv.txt", FileMode.Open));
-
-            string lijn = lezer.ReadLine();
-
-            while (!lezer.EndOfStream)
+            using (StreamReader lezer = new StreamReader(new FileStream("myCsv.txt", FileMode.Open)))
             {
-                lijn = lezer.ReadLine();
-                string[] splits = lijn.Split(';');
-                Stitch stitch = new Stitch();
-                stitch.DeliveryDate = Convert.ToDateTime(splits[4]);
-                stitch.JobNumber = splits[1];
+                string lijn = lezer.ReadLine();
 
-                double aantal = double.Parse(splits[2]);
-                stitch.Quantity = Convert.ToInt16(aantal);
-                
-                stitch.PaperBw = splits[8];
-                stitch.MachineId = 1;
-                stitch.UserId = 1;
+                while (!lezer.EndOfStream)
+                {
+                    lijn = lezer.ReadLine();
+                    string[] splits = lijn.Split(';');
+                    Stitch stitch = new Stitch();
+                    stitch.DeliveryDate = Convert.ToDateTime(splits[4]);
+                    stitch.JobNumber = splits[1];
 
-                _context.Stitches.Add(stitch);
-               
+                    double aantal = double.Parse(splits[2]);
+                    stitch.Quantity = Convert.ToInt16(aantal);
 
+                    stitch.PaperBw = splits[8];
+                    stitch.MachineId = 1;
+                    stitch.UserId = 1;
 
+                    _context.Stitches.Add(stitch);
+                }
             }
 
             _context.SaveChanges();
+            
 
             return RedirectToAction("Index", 1);
         }
